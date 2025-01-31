@@ -10,6 +10,10 @@ const syllabusSchema = new mongoose.Schema({
     enum: ['MCA', 'BCA'], // Allow only MCA or BCA
     required: true
   },
+  semester: { 
+    type: String,
+    required: true
+  },
   courseCode: {
     type: String,
     required: true,
