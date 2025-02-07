@@ -32,19 +32,19 @@ const syllabusSchema = new mongoose.Schema({
   },
   syllabus: {
     unit1: {
-      content: String,
+      topics: [String],
       experientialLearning: [String] // Array of experiential learning activities
     },
     unit2: {
-      content: String,
+      topics: [String],
       experientialLearning: [String]
     },
     unit3: {
-      content: String,
+      topics: [String],
       experientialLearning: [String]
     },
     unit4: {
-      content: String,
+      topics: [String],
       experientialLearning: [String]
     }
   },

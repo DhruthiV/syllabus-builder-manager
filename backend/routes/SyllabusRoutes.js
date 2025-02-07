@@ -1,5 +1,5 @@
 const express = require('express')
-const Syllabus = require('../models/syllabus')
+const Syllabus = require('../models/Syllabus')
 const router = express.Router();
 
 // Create a new syllabus
