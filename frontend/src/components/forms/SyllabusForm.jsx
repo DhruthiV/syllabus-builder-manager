@@ -5,6 +5,7 @@ import UnitSection from './UnitSection';
 function SyllabusForm({ formData, setFormData }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
+
         if (name === "program") {
             // Reset semester when program changes
             setFormData({
@@ -14,17 +15,22 @@ function SyllabusForm({ formData, setFormData }) {
             });
         } else if (name.startsWith("unit")) {
             const [unit, field] = name.split('_');
-            setFormData({
-                ...formData,
-                syllabus: {
-                    ...formData.syllabus,
-                    [unit]: {
-                        ...formData.syllabus[unit],
-                        [field]: value
+
+            // If the field is topics or experientialLearning, split values into an array
+            if (field === 'topics' || field === 'experientialLearning') {
+                setFormData({
+                    ...formData,
+                    syllabus: {
+                        ...formData.syllabus,
+                        [unit]: {
+                            ...formData.syllabus[unit],
+                            [field]: updatedValue
+                        }
                     }
-                }
-            });
+                });
+            }
         } else {
+            // For other fields like year, program, etc.
             setFormData({ ...formData, [name]: value });
         }
     };
@@ -42,9 +48,9 @@ function SyllabusForm({ formData, setFormData }) {
                 />
             </Form.Group>
 
-            <SemesterOptions 
-                formData={formData} 
-                handleChange={handleChange} 
+            <SemesterOptions
+                formData={formData}
+                handleChange={handleChange}
             />
 
             <Form.Group>
@@ -82,13 +88,13 @@ function SyllabusForm({ formData, setFormData }) {
 
             {/* Unit Sections */}
             {[1, 2, 3, 4].map((unit) => (
-                <UnitSection 
+                <UnitSection
                     key={unit}
-                    unit={unit} 
-                    formData={formData} 
-                    handleChange={handleChange} 
+                    unit={unit}
+                    formData={formData}
+                    handleChange={handleChange}
                 />
-            ))}                
+            ))}
         </Form>
     );
 }
