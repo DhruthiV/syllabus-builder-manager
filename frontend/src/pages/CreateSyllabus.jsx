@@ -6,6 +6,8 @@ import SyllabusForm from "../components/forms/SyllabusForm";
 
 function CreateSyllabus({ loadedSyllabus }) {
 
+    
+
     const [formData, setFormData] = useState({
         year: "2025",  // Example: Year of the syllabus
         program: "MCA",  // Example: Master of Computer Applications
@@ -43,6 +45,7 @@ function CreateSyllabus({ loadedSyllabus }) {
 
     const [isSaved, setIsSaved] = useState(false);
     const [isFinalized, setIsFinalized] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(true);
 
 
 
@@ -53,6 +56,7 @@ function CreateSyllabus({ loadedSyllabus }) {
             setFormData(loadedSyllabus)
             setIsSaved(true)
             setIsFinalized(loadedSyllabus.finalized)
+            setIsEditMode(!loadedSyllabus.finalized);
         }
     }, [loadedSyllabus])
 
@@ -64,6 +68,7 @@ function CreateSyllabus({ loadedSyllabus }) {
                 <SyllabusForm
                     formData={formData}
                     setFormData={setFormData}
+                    isEditMode={isEditMode}
                 />
 
 
@@ -72,6 +77,8 @@ function CreateSyllabus({ loadedSyllabus }) {
                     disabled={isSaved}
                     isSaved={isSaved}
                     setIsSaved={setIsSaved}
+                    setFormData={setFormData}
+                    isEditMode={isEditMode}
                 />
                 <FinalizeButton
                     courseCode={formData.courseCode}
