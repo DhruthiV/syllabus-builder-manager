@@ -2,16 +2,15 @@ import { Form } from 'react-bootstrap';
 import SemesterOptions from './SemesterOptions';
 import UnitSection from './UnitSection';
 
-function SyllabusForm({ formData, setFormData }) {
+function SyllabusForm({ formData, setFormData, isEditMode = false }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "program") {
-            // Reset semester when program changes
             setFormData({
                 ...formData,
                 [name]: value,
-                semester: ""  // Reset semester when program changes
+                semester: "" 
             });
         } else if (name.startsWith("unit")) {
             const [unit, field] = name.split('_');
@@ -35,6 +34,36 @@ function SyllabusForm({ formData, setFormData }) {
         }
     };
 
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    
+    //     if (name === "program") {
+    //         setFormData({
+    //             ...formData,
+    //             [name]: value,
+    //             semester: "" // Reset semester when program changes
+    //         });
+    //     } else if (name.startsWith("unit")) {
+    //         const [unit, field] = name.split('_');
+    
+    //         if (field === 'topics' || field === 'experientialLearning') {
+    //             setFormData({
+    //                 ...formData,
+    //                 syllabus: {
+    //                     ...formData.syllabus,
+    //                     [unit]: {
+    //                         ...formData.syllabus[unit],
+    //                         [field]: value.split(',')  // Convert input to array
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     } else {
+    //         setFormData({ ...formData, [name]: value });
+    //     }
+    // };
+    
+
     return (
         <Form>
             <Form.Group>
@@ -51,6 +80,7 @@ function SyllabusForm({ formData, setFormData }) {
             <SemesterOptions
                 formData={formData}
                 handleChange={handleChange}
+                isEditMode={isEditMode}
             />
 
             <Form.Group>
@@ -60,6 +90,7 @@ function SyllabusForm({ formData, setFormData }) {
                     name="courseCode"
                     value={formData.courseCode}
                     onChange={handleChange}
+                    disabled={isEditMode}
                     required
                 />
             </Form.Group>

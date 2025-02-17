@@ -1,11 +1,9 @@
 import { Form } from 'react-bootstrap';
 
-function SemesterOptions({ formData, handleChange }) {
+function SemesterOptions({ formData, handleChange, isEditMode }) {
     const getSemesterOptions = () => {
-        return formData.program === "MCA"
-            ? ["Semester 1", "Semester 2", "Semester 3", "Semester 4"]
-            : ["Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5", "Semester 6"];
-    };
+        return formData.program === "MCA" ? [1, 2, 3, 4] : [1, 2, 3, 4, 5, 6];
+    };;
 
     return (
         <>
@@ -15,7 +13,8 @@ function SemesterOptions({ formData, handleChange }) {
                     as="select"
                     name="program"
                     value={formData.program}
-                    onChange={handleChange} // Passing handleChange here
+                    onChange={handleChange}
+                    disabled={isEditMode}
                     required
                 >
                     <option value="">Select Program</option>
@@ -35,8 +34,8 @@ function SemesterOptions({ formData, handleChange }) {
                         required
                     >
                         <option value="">Select Semester</option>
-                        {getSemesterOptions().map((semester, index) => (
-                            <option key={index} value={semester}>{semester}</option>
+                        {getSemesterOptions().map((sem, index) => (
+                            <option key={index} value={sem}>{`Semester ${sem}`}</option>
                         ))}
                     </Form.Control>
                 </Form.Group>
